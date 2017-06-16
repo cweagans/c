@@ -29,10 +29,3 @@ c() {
     cd "$PROJECTS/$1"
   fi
 }
-
-_c() {
-  _files -W $PROJECTS -/
-  _files -W $GOPATH/src/github.com -/
-}
-
-compctl -V directories -K _c c
