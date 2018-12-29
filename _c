@@ -1,3 +1,4 @@
 #compdef c
 _files -W $PROJECTS -/
 _files -W $GOPATH/src/github.com -/
+_files -W $GOPATH/src/gitlab.com -/

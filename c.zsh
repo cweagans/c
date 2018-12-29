@@ -25,6 +25,8 @@ fi
 c() {
   if [ ! -z "$1" ] && [ -s "$GOPATH/src/github.com/$1" ]; then
     cd "$GOPATH/src/github.com/$1"
+  elif [ ! -z "$1" ] && [ -s "$GOPATH/src/gitlab.com/$1" ]; then
+    cd "$GOPATH/src/gitlab.com/$1"
   else
     cd "$PROJECTS/$1"
   fi
