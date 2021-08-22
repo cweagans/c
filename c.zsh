@@ -23,11 +23,24 @@ if [ -z "$PROJECTS" ]; then
 fi
 
 c() {
-  if [ ! -z "$1" ] && [ -s "$GOPATH/src/github.com/$1" ]; then
-    cd "$GOPATH/src/github.com/$1"
-  elif [ ! -z "$1" ] && [ -s "$GOPATH/src/gitlab.com/$1" ]; then
-    cd "$GOPATH/src/gitlab.com/$1"
-  else
-    cd "$PROJECTS/$1"
+  if [ -z "$1" ]; then
+    cd $PROJECTS
+    return
   fi
+
+  if git config --global --get ghq.root >> /dev/null; then
+    ghqRoot=$(git config --global --get ghq.root)
+    if [ -d "${ghqRoot}/github.com/${1}" ]; then
+      cd "${ghqRoot}/github.com/${1}"
+      return
+    elif [ -d "${ghqRoot}/gitlab.com/${1}" ]; then
+      cd "${ghqRoot}/gitlab.com/${1}"
+      return
+    elif [ -d "$ghqRoot/${1}" ]; then
+      cd "${ghqRoot}/${1}"
+      return
+    fi
+  fi
+
+  cd "${PROJECTS}/${1}"
 }

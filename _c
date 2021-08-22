@@ -1,4 +1,11 @@
 #compdef c
+
+# Include paths for the projects directory
 _files -W $PROJECTS -/
-_files -W $GOPATH/src/github.com -/
-_files -W $GOPATH/src/gitlab.com -/
+
+# If ghq is in use, include subdirectories
+if git config --global --get ghq.root >> /dev/null; then
+    _files -W $(git config --global --get ghq.root)/github.com -/
+    _files -W $(git config --global --get ghq.root)/gitlab.com -/
+    _files -W $(git config --global --get ghq.root) -/
+fi
